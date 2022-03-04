@@ -42,7 +42,7 @@
           Backward
         </button>
         <button id="btnff" onclick="fastForward()">fastForward</button>
-        <button id="btnback" onclick="Rewind()">Rewind</button>
+        <button id="btnback" onclick="playBackwards()">Rewind</button>
 
         <button id="btnStop" onClick="stopVideo()">Pause</button>
       </div>
@@ -71,7 +71,20 @@
       };
 
       const Rewind = () => {
-        video.playbackRate -= 1;
+        video.currentTime = 0;
+      };
+
+      const playBackwards = () => {
+        const fps = 25;
+        const intervalRewind = setInterval(() => {
+          if (video.currentTime == 0) {
+            clearInterval(intervalRewind);
+            video.pause();
+          } else {
+            video.pause();
+            video.currentTime += -(1 / fps);
+          }
+        }, 40);
       };
     </script>
   </body>
